@@ -1,8 +1,8 @@
 # 🌾 Smart Farming Through Multi-Temporal Climate Based AI for Agricultural Decision Support
 
 > **B.Tech Final Year Project | CSE Department | AITAM, Andhra Pradesh | April 2026**
-> 
-> 🏆 **Research paper accepted for Oral Presentation at WAMS 2026 International Conference (IEEE) — Paper ID: 483**
+
+> 🏆 **Research Paper accepted for Oral Presentation at WAMS 2026 International Conference (IEEE) — Paper ID: 483**
 
 ---
 
@@ -22,152 +22,158 @@
 
 ## 📌 Project Overview
 
-This project develops an intelligent **Smart Farming Decision Support System** using Artificial Intelligence and multi-temporal climate data. It analyzes key agricultural parameters such as **rainfall, temperature, soil moisture, and humidity** from NASA POWER datasets to evaluate land suitability and provide data-driven farming recommendations.
+This project builds a **Smart Farming Decision Support System** using AI and multi-temporal climate data from NASA POWER (2015–2024). It analyses rainfall, temperature, soil moisture, and humidity to evaluate agricultural land suitability and give farmers practical recommendations — without needing expensive sensors or soil testing.
 
-A novel **Agricultural Condition Level Index (ACLI)** is introduced to classify agricultural land into:
-- 🔴 **Poor** — Unfavorable conditions
+A custom index called **ACLI (Agricultural Condition Level Index)** is created to classify land into:
+- 🔴 **Poor** — High climate stress, unfavorable for crops
 - 🟡 **Moderate** — Average conditions
-- 🟢 **Good** — Optimal conditions for cultivation
+- 🟢 **Good** — Optimal conditions for farming
 
 ---
 
 ## 🎯 Problem Statement
 
-Traditional farming relies on expensive soil testing and IoT sensors that are not accessible to rural farmers. This system provides a **cost-effective, scalable alternative** using freely available NASA climate datasets — no expensive hardware required.
+Rural farmers cannot afford expensive soil testing labs or IoT sensor systems. This project provides a **free, scalable, AI-based alternative** using NASA climate datasets to help farmers make better decisions about irrigation, crop selection, and seasonal planning.
 
 ---
 
-## 🧠 Domain & Technologies
-
-| Category | Details |
-|---|---|
-| Domain | Artificial Intelligence & Machine Learning |
-| Sub-domain | Agricultural Data Analytics |
-| Dataset | NASA POWER (2015–2024) |
-| Language | Python 3.8+ |
-| Environment | Jupyter Notebook / Google Colab |
-| ML Framework | Scikit-learn |
-| Key Libraries | Pandas, NumPy, Matplotlib, Seaborn, Joblib |
-
----
-
-## 🤖 Machine Learning Models
-
-### Model 1 — Decision Tree (Baseline)
-- Rule-based classification using entropy and information gain
-- Accuracy: **90.48%**
-- Interpretable and easy to understand
-
-### Model 2 — Gradient Boosting (Final Model ✅)
-- Ensemble learning — each tree learns from previous errors
-- Accuracy: **92.61%**
-- Better generalization and higher precision across all classes
-
----
-
-## 📊 Model Performance Results
-
-### Regression Performance
-| Model | Index | MAE | RMSE | R² Score |
-|---|---|---|---|---|
-| Decision Tree | Irrigation Index | 0.0244 | 0.0350 | 0.9824 |
-| Decision Tree | Crop Index | 0.0290 | 0.0483 | 0.9435 |
-| Decision Tree | ACLI | 0.0250 | 0.0414 | 0.9622 |
-| **Gradient Boosting** | **Irrigation Index** | **0.0107** | **0.0152** | **0.9967** |
-| **Gradient Boosting** | **Crop Index** | **0.0166** | **0.0238** | **0.9863** |
-| **Gradient Boosting** | **ACLI** | **0.0165** | **0.0238** | **0.9875** |
-
-### Classification Performance
-| Model | Accuracy | Precision | Recall | F1-Score |
-|---|---|---|---|---|
-| Decision Tree Classifier | 90.48% | 0.91 | 0.90 | 0.91 |
-| **Gradient Boosting Classifier** | **92.61%** | **0.93** | **0.93** | **0.93** |
-
----
-
-## 🔄 System Workflow
-
-```
-NASA POWER Climate Data (2015–2024)
-        ↓
-Data Preprocessing
-(Missing Value Handling + Min-Max Normalization + Temporal Aggregation)
-        ↓
-Feature Engineering
-(Irrigation Index + Crop Index + ACLI Computation)
-        ↓
-Train-Test Split (80/20 — No Shuffle to preserve temporal order)
-        ↓
-ML Model Training
-(Decision Tree  ←→  Gradient Boosting)
-        ↓
-Model Evaluation
-(Accuracy, Precision, Recall, F1-Score, RMSE, MAE, R²)
-        ↓
-Agricultural Decision Support Output
-(Irrigation Scheduling + Crop Suitability + Seasonal Recommendations)
-```
-
----
-
-## 📁 Repository Structure
+## 📁 Repository Structure & What Each File Does
 
 ```
 📁 Smart-Farming-AI/
-├── 📓 decision_tree_final.ipynb          # Decision Tree model implementation
-├── 📓 random_forest_final.ipynb          # Random Forest experiments
-├── 📓 gradient_boosting_final.ipynb      # Gradient Boosting model (Final)
-├── 📊 BATCH-21.pptx                      # Project presentation slides
-└── 📄 Document_Batch_21_merged.pdf       # Complete project report
+│
+├── 📓 decision_tree_final.ipynb
+│       → Loads NASA POWER Daily.csv dataset
+│       → Handles missing values using mean imputation
+│       → Creates monthly features (rainfall, temperature, humidity, soil moisture)
+│       → Applies Min-Max normalization
+│       → Computes Irrigation Index, Crop Index, and ACLI
+│       → Trains Decision Tree Regressor & Classifier
+│       → Evaluates using MAE, RMSE, R², Accuracy, F1-Score
+│       → Plots Actual vs Predicted ACLI and Confusion Matrix
+│       → Result: Accuracy = 90.48%
+│
+├── 📓 random_forest_final.ipynb
+│       → Same preprocessing pipeline as Decision Tree
+│       → Trains Random Forest Classifier (200 trees, max_depth=10)
+│       → Used for model comparison experiments
+│       → Evaluates accuracy and classification performance
+│
+├── 📓 gradient_boosting_final.ipynb
+│       → Same preprocessing pipeline as Decision Tree
+│       → Trains Gradient Boosting Regressor for ACLI, Irrigation & Crop Index
+│       → Trains Gradient Boosting Classifier for land suitability
+│       → Parameters: 200 estimators, learning rate = 0.05
+│       → Evaluates and saves models using Joblib
+│       → Plots Actual vs Predicted ACLI and Confusion Matrix
+│       → Result: Accuracy = 92.61% ✅ (Best Model)
+│
+├── 📊 BATCH-21.pptx
+│       → Full project presentation slides
+│       → Covers problem statement, methodology, results & conclusion
+│
+└── 📄 Document_Batch_21_merged.pdf
+        → Complete B.Tech project report
+        → Includes literature survey, system design, source code & results
 ```
 
 ---
 
-## 🌟 Key Contributions
+## 🧠 Technologies Used
 
-- ✅ Introduced **ACLI (Agricultural Condition Level Index)** — a novel composite climate metric
-- ✅ Achieved **92.61% accuracy** with Gradient Boosting on land suitability classification
-- ✅ Used **freely available NASA POWER data** — no expensive sensors or IoT required
-- ✅ Provides actionable recommendations for **irrigation, crop selection & seasonal planning**
-- ✅ **Cost-effective & scalable** — suitable for rural and resource-constrained regions
-- ✅ Research paper **accepted at WAMS 2026 IEEE International Conference**
+| Category | Details |
+|---|---|
+| Language | Python 3.8+ |
+| Platform | Google Colab / Jupyter Notebook |
+| Dataset | NASA POWER Daily Climate Data (2015–2024) |
+| ML Library | Scikit-learn |
+| Data Processing | Pandas, NumPy |
+| Visualization | Matplotlib, Seaborn |
+| Model Saving | Joblib |
+
+---
+
+## 🤖 Models & Results
+
+### Model 1 — Decision Tree
+- Baseline model
+- Simple rule-based classification
+- **Accuracy: 90.48%**
+
+### Model 2 — Random Forest
+- Ensemble of 200 decision trees
+- Used for comparison experiments
+
+### Model 3 — Gradient Boosting ✅ Final Model
+- Iteratively corrects errors of previous trees
+- **Accuracy: 92.61%** — Best performance
+
+---
+
+## 📊 Performance Results
+
+### Regression (Predicting ACLI values)
+| Model | MAE | RMSE | R² Score |
+|---|---|---|---|
+| Decision Tree | 0.0250 | 0.0414 | 0.9622 |
+| **Gradient Boosting** | **0.0165** | **0.0238** | **0.9875** |
+
+### Classification (Land Suitability)
+| Model | Accuracy | Precision | Recall | F1-Score |
+|---|---|---|---|---|
+| Decision Tree | 90.48% | 0.91 | 0.90 | 0.91 |
+| **Gradient Boosting** | **92.61%** | **0.93** | **0.93** | **0.93** |
+
+---
+
+## 🔄 How the Code Works (Step by Step)
+
+```
+Step 1 → Load NASA POWER Daily.csv from Google Drive
+Step 2 → Create Date index from YEAR + DOY columns
+Step 3 → Replace -999 values with NaN
+Step 4 → Fill missing values using column mean
+Step 5 → Create 30-day rolling monthly features
+         (cumulative rainfall, avg temperature, avg humidity, avg soil moisture)
+Step 6 → Normalize all features using Min-Max Scaling
+Step 7 → Compute agricultural indices:
+         Irrigation Index = (soil moisture + rainfall) / 2
+         Crop Index = (temperature + humidity + soil moisture) / 3
+         ACLI = (rainfall + temperature + humidity + soil moisture) / 4
+Step 8 → Label land as Low / Medium / High based on ACLI thresholds
+Step 9 → Split data 80% train / 20% test (no shuffle — preserves time order)
+Step 10 → Train and evaluate ML models
+Step 11 → Generate farming recommendations
+```
+
+---
+
+## 🌟 Key Achievements
+
+- ✅ Introduced **ACLI** — a novel climate-based land suitability index
+- ✅ **92.61% accuracy** with Gradient Boosting
+- ✅ Uses **free NASA POWER data** — zero hardware cost
+- ✅ Actionable output: irrigation scheduling, crop selection, seasonal planning
+- ✅ Scalable for rural and resource-limited farming regions
+- ✅ **IEEE WAMS 2026 accepted paper** 🏆
 
 ---
 
 ## 🌍 Key Findings
 
-- 🌧️ **Monsoon season** → Land classified as **Good** (High ACLI due to rainfall)
-- ☀️ **Summer season** → Land classified as **Poor** (High climate stress)
+- 🌧️ **Monsoon season** → Land classified as **Good** (sufficient rainfall)
+- ☀️ **Summer season** → Land classified as **Poor** (high climate stress)
 - 🍂 **Transitional seasons** → Land classified as **Moderate**
-
----
-
-## 🔮 Future Scope
-
-- Integration of satellite imagery (NDVI) for in-season crop monitoring
-- Real-time deployment using NASA POWER API
-- Explainable AI (SHAP) for transparent predictions
-- Expansion to multiple geographic regions across India
-- Incorporation of market pricing and crop calendar data
-
----
-
-## 🏆 Achievement
-
-> 📜 Research paper titled **"Smart Farming through Multi Temporal Climate based AI for Agricultural Decision Support"** accepted for **Oral Presentation at WAMS 2026 International Conference (IEEE)** — Paper ID: 483
 
 ---
 
 ## 🏛️ Institution
 
 **Aditya Institute of Technology and Management (AITAM)**
-Department of Computer Science and Engineering
+Dept. of Computer Science & Engineering
 K.Kotturu, Tekkali, Srikakulam — 532201, Andhra Pradesh
 *Accredited by NBA & NAAC with A+ | Affiliated to JNTUGV*
 
 ---
 
-## 📄 License
-
-This project was developed as a Final Year B.Tech project.
-All rights reserved © 2026 — Team Batch 21, AITAM CSE
+© 2026 Team Batch 21 — AITAM CSE. All rights reserved.
